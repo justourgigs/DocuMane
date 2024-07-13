@@ -1,45 +1,49 @@
-"use client";
+"use client"
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react'; 
 
-import { Typography } from "@material-tailwind/react";
+const Footer = () => {
+    const [routerMounted, setRouterMounted] = useState(false); // State to track whether router is mounted
+    const router = useRouter();
+  
+    // useEffect hook to set routerMounted state when router is mounted
+    useEffect(() => {
+      setRouterMounted(true);
+      return () => setRouterMounted(false); // Cleanup function to reset state when component unmounts
+    }, []);
 
-export default function Footer() {
+    const handleNavigation = (href) => {
+        router.push(href);
+      };
+
   return (
-    <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 px-7 py-6 text-center md:justify-between">
-      <Typography color="blue-gray" className="font-normal">
-        &copy; Utkarsh Gauniyal
-      </Typography>
-      <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
-        <li>
-          <Typography
-            as="a"
-            href="#"
-            color="blue-gray"
-            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-          >
-            About Us
-          </Typography>
-        </li>
-        <li>
-          <Typography
-            as="a"
-            href="#"
-            color="blue-gray"
-            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-          >
-            Repository
-          </Typography>
-        </li>
-        <li>
-          <Typography
-            as="a"
-            href="#"
-            color="blue-gray"
-            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-          >
-            Contact Us
-          </Typography>
-        </li>
-      </ul>
+
+    <footer className="mt-2 text-white flex flex-col items-center justify-center mb-4">
+
+      <div className="max-w-3xl mx-auto text-sm flex flex-col items-center">
+
+        <p className="mb-1">Created with ❤️ by Utkarsh Gauniyal and Priyanshu Gupta</p>
+
+        <div className="flex space-x-4">
+
+          <a href="#" className="hover:text-gray-700">About Us</a>
+
+          <a href="#" className="hover:text-gray-700">Privacy Policy</a>
+
+          <a href="#" className="hover:text-gray-700">Terms of Service</a>
+        
+          <a onClick={() => handleNavigation('/contact')} className="hover:text-gray-700">Contact Us</a>
+
+        </div>
+
+      </div>
+
     </footer>
+
   );
-}
+
+};
+
+
+export default Footer;
