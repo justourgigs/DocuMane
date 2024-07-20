@@ -8,11 +8,17 @@ import axios from 'axios';
 
 import Head from "next/head";
 
+import Cookies from 'js-cookie'
+import { toast } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  
   const router = useRouter();
   const api = axios.create({
     baseURL: 'http://localhost:8000'
@@ -26,26 +32,29 @@ const Login = () => {
       const response = await api.post('/login', { 
         email: username,
         password: password
+       
       });
 
     if (response.data.message === "Login Successful") {
       
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('username', response.data.username);
+      Cookies.set('token', response.data.token);
+      Cookies.set('username', response.data.username);
+      Cookies.set('email', response.data.email);
 
       console.log("JWT token:", response.data.token);
       console.log("username:", response.data.username);
+      console.log("email:", response.data.email);
 
-      router.push('/about');
+      router.push('/');
     } else if(response.data.message === "Passwords does not match") {
       
-      alert("Wrong ID or password");
+      toast.error("Wrong ID or password");
     }
      
       
     } catch (error) {
       console.error('Error:', error.response.data); 
-      alert("Wrong ID or password");
+      toast.error("Wrong ID or password");
     }
   };
   const handleGoogleLogin = () => {
@@ -53,7 +62,9 @@ const Login = () => {
  };
 
   return (
-    <><Head>
+    <>
+    <ToastContainer />
+    <Head>
       <title>
         Login
       </title>
