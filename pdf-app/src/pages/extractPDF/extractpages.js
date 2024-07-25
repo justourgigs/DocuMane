@@ -48,12 +48,12 @@ const ExtractPDF = () => {
       };
 
       // Set the URL and configuration based on whether a user is logged in or not
-      let url = 'http://localhost:8000/extract-pages'; // Default URL
+      let url = 'https://documane.onrender.com/tools/extract-pages'; // Default URL
       let config = {}; // Default configuration
 
       const token = Cookies.get('token'); // Get the user's token
       if (token) {
-        url = 'http://localhost:8000/login/extract-pages'; // URL for logged-in users
+        url = 'https://documane.onrender.com/tools/login/extract-pages'; // URL for logged-in users
         config = {
           headers: {
             Authorization: `Bearer ${token}`, // Set the authorization header with the token
