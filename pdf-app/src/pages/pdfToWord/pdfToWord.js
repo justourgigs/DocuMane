@@ -9,9 +9,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
-const TranslatePDF = () => {
+const PdfToWord = () => {
   const [file, setFile] = useState(null);
-  const [language, setLanguage] = useState("");
   const router = useRouter();
 
   const handleFileUpload = (event) => {
@@ -41,24 +40,14 @@ const TranslatePDF = () => {
     setFile(null);
   };
 
-  const handleLanguageChange = (event) => {
-    setLanguage(event.target.value);
-  };
-
   const handleConvert = () => {
     if (!file) {
       toast.error("Please select a file to convert.");
       return;
     }
 
-    if (!language) {
-      toast.error("Please select a language.");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("pdf", file.file);
-    formData.append("languageIsoCode", language);
 
     const token = Cookies.get("token");
     if (!token) {
@@ -67,7 +56,7 @@ const TranslatePDF = () => {
     }
 
     axios
-      .post("http://localhost:8000/tools/translate-pdf", formData, {
+      .post("http://localhost:8000/tools/pdf-to-word", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -75,7 +64,7 @@ const TranslatePDF = () => {
       })
       .then((response) => {
         router.push({
-          pathname: "/translatePDF/download",
+          pathname: "/pdfToWord/download",
           query: { url: encodeURIComponent(response.data) },
         });
       })
@@ -89,29 +78,18 @@ const TranslatePDF = () => {
     <>
       <ToastContainer />
       <Head>
-        <title>DocuMane - Translate PDF</title>
+        <title>DocuMane - Convert PDF to Word</title>
       </Head>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
           <div className="flex justify-between items-center mb-6">
-            <span className="font-bold text-lg px-12">Translate PDF</span>
+            <span className="font-bold text-lg px-12">Name</span>
             <div className="flex space-x-4 mr-2">
-              <select
-                className="bg-light-component text-white px-4 py-2 rounded hover:bg-dark-component mx-4"
-                value={language}
-                onChange={handleLanguageChange}
-              >
-                <option value="" disabled>Select language</option>
-                <option value="es">Spanish</option>
-                <option value="pt">Portuguese</option>
-                <option value="en">English</option>
-                <option value="fr">French</option>
-              </select>
               <button
                 className="bg-light-component text-white px-4 py-2 rounded hover:bg-dark-component mx-4"
                 onClick={handleConvert}
               >
-                Convert
+                Convert to Word
               </button>
             </div>
           </div>
@@ -138,7 +116,10 @@ const TranslatePDF = () => {
             <div className="mb-4">
               <div className="flex justify-between items-center bg-gray-200 p-2 rounded">
                 <span className="px-10">{file.file.name}</span>
-                <button onClick={handleFileRemove} className="text-red-500">
+                <button
+                  onClick={handleFileRemove}
+                  className="text-red-500"
+                >
                   <TrashOutline className="w-5 h-5" />
                 </button>
               </div>
@@ -150,4 +131,4 @@ const TranslatePDF = () => {
   );
 };
 
-export default TranslatePDF;
+export default PdfToWord;

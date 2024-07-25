@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
-const MergePDF = () => {
+const ImagesToPDF = () => {
   const [files, setFiles] = useState([]);
   const router = useRouter();
 
@@ -62,17 +62,17 @@ const MergePDF = () => {
     setFiles([]);
   };
 
-  const handleMerge = () => {
+  const handleConvert = () => {
     const selectedFiles = files.filter((fileObj) => fileObj.selected);
 
-    if (selectedFiles.length < 2) {
-      alert("Please select at least two files to merge.");
+    if (selectedFiles.length < 1) {
+      alert("Please select at least one image file.");
       return;
     }
 
     const formData = new FormData();
     selectedFiles.forEach((fileObj) => {
-      formData.append("pdfs", fileObj.file);
+      formData.append("images", fileObj.file);
     });
 
     const token = Cookies.get("token");
@@ -82,7 +82,7 @@ const MergePDF = () => {
     }
 
     axios
-      .post("http://localhost:8000/tools/merge", formData, {
+      .post("http://localhost:8000/tools/images-to-pdf", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -90,23 +90,23 @@ const MergePDF = () => {
       })
       .then((response) => {
         router.push({
-          pathname: "/mergePDF/download",
+          pathname: "/imageToPDF/download",
           query: { url: encodeURIComponent(response.data) },
         });
       })
       .catch((error) => {
-        toast.error("File Merge Unsucessful!");
+        toast.error("Conversion Unsuccessful!");
         console.log(error);
       });
 
-    console.log("Selected files for merging:", selectedFiles);
+    console.log("Selected files for conversion:", selectedFiles);
   };
 
   return (
     <>
       <ToastContainer />
       <Head>
-        <title>DocuMane - Merge PDFs</title>
+        <title>DocuMane - Convert Images to PDF</title>
       </Head>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
@@ -124,9 +124,9 @@ const MergePDF = () => {
             <div className="flex space-x-4 mr-2">
               <button
                 className="bg-light-component text-white px-4 py-2 rounded hover:bg-dark-component mx-4"
-                onClick={handleMerge}
+                onClick={handleConvert}
               >
-                Merge & Download
+                Convert & Download
               </button>
               <button onClick={handleRemoveAll} className="text-red-500">
                 <TrashOutline className="w-6 h-6" />
@@ -141,12 +141,12 @@ const MergePDF = () => {
             className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg mb-4 relative cursor-pointer"
           >
             <p className="text-gray-500 text-center">
-              Drag and drop your PDF files here or click to select files
+              Drag and drop your image files here or click to select files
             </p>
             <input
               type="file"
               multiple
-              accept="application/pdf"
+              accept="image/*"
               onChange={handleFilesUpload}
               className="hidden"
               id="file-upload"
@@ -189,4 +189,4 @@ const MergePDF = () => {
   );
 };
 
-export default MergePDF;
+export default ImagesToPDF;

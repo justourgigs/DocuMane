@@ -93,12 +93,12 @@ export default function CustomNavbar() {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/textExtractPDF/textextractor"}>
+                              <Link href={"/OCRPDF/OCRPDF"}>
                                 <button
                                   className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                                     } flex justify-between w-full px-4 py-2 text-sm`}
                                 >
-                                  PDF Text Extractor
+                                  OCR PDF
                                 </button>
                               </Link>
                             )}
@@ -123,6 +123,30 @@ export default function CustomNavbar() {
                                     } flex justify-between w-full px-4 py-2 text-sm`}
                                 >
                                   Merge PDFs
+                                </button>
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link href={"/pdfToWord/pdfToWord"}>
+                                <button
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                                    } flex justify-between w-full px-4 py-2 text-sm`}
+                                >
+                                  PDF To Word
+                                </button>
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link href={"/imageToPDF/imageToPdf"}>
+                                <button
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                                    } flex justify-between w-full px-4 py-2 text-sm`}
+                                >
+                                  Images To PDF
                                 </button>
                               </Link>
                             )}
