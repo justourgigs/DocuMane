@@ -82,7 +82,7 @@ const MergePDF = () => {
     }
 
     axios
-      .post("https://documane.onrender.com/tools/merge", formData, {
+      .post("http://localhost:8000/tools/merge", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

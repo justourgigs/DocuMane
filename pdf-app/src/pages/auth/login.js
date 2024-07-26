@@ -21,7 +21,7 @@ const Login = () => {
   
   const router = useRouter();
   const api = axios.create({
-    baseURL: 'https://documane.onrender.com'
+    baseURL: 'http://localhost:8000'
   });
 
 
@@ -58,7 +58,7 @@ const Login = () => {
     }
   };
   const handleGoogleLogin = () => {
-    window.location.href = 'https://documane.onrender.com/auth/auth/google';
+    window.location.href = 'http://localhost:8000/auth/google';
  };
 
   return (

@@ -56,7 +56,7 @@ const CompressPDF = () => {
     }
 
     axios
-      .post("https://documane.onrender.com/tools/compresspdf", formData, {
+      .post("http://localhost:8000/tools/compresspdf", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

@@ -14,7 +14,7 @@ const DropzoneComponent = ({ onFileUpload }) => {
         const email = Cookies.get('email');
         formData.append('email', email);
 
-        axios.post(`https://documane.onrender.com/tools/upload`, formData)
+        axios.post(`http://localhost:8000/upload`, formData)
           .then(response => {
             onFileUpload(file); // Call the parent callback function with the uploaded file
           })

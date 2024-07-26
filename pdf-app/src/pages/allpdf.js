@@ -30,7 +30,7 @@ const AllPdfPage = () => {
           return;
         }
 
-        const response = await axios.get(`https://documane.onrender.com/tools/allpdfs?page=${currentPage}&limit=8`, {
+        const response = await axios.get(`http://localhost:8000/allpdfs?page=${currentPage}&limit=8`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -75,7 +75,7 @@ const AllPdfPage = () => {
       const fileName = pdfLink.split('/').pop();
       console.log("file name to be deleted:" + fileName);
       // Call the API to delete the PDF
-      await axios.delete(`https://documane.onrender.com/tools/pdf/${fileName}`, {
+      await axios.delete(`http://localhost:8000/pdf/${fileName}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

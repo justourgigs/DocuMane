@@ -19,7 +19,7 @@ const Upload = () => {
     const formData = new FormData();
     formData.append('originalname', selectedFile);
 
-    axios.post('https://documane.onrender.com/tools/upload', formData, {
+    axios.post('http://localhost:8000/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
