@@ -1,118 +1,99 @@
 
-# PDF-Generator (Backend - ExpressJS)
+# DocuMane
 
-This Express application serves as a PDF Generator API providing endpoints for uploading, retrieving, and extracting PDF files. It uses the pdf-lib library for PDF manipulation and multer for file uploading functionality.
+DocuMane is a lightweight PDF editor and management system designed to help users easily manage, edit, and securely store their PDF files. It offers a user-friendly interface with features tailored for both registered and unregistered users.
 
-## API Reference
+<br/>
 
-#### Get pdf
+[![DocuMane Homepage](https://i.postimg.cc/KjC7QD1M/Screenshot-2024-07-26-064431.png)](https://postimg.cc/fSj0RXjz)
 
-```http
-  GET /pdf/:filename
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `filename` | `string` | **Required**. Your pdf filename |
-
-#### Upload pdf
-
-```http
-  POST /upload
-```
-
-| Form Data | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `file`      | `application/pdf` | **Required**. pdf file |
+<br/>
 
 
-#### Register user
-```http
-  POST /register
-```
+## How we built it
+DocuMane was developed using Next.js for the frontend and Express.js for the backend. We integrated cloud storage solutions (AWS for registered users to persist their document files and tmpfiles.org for unregistered users) and used MongoDB for our database to ensure efficient and secure handling of PDF files. We are using Google Cloud APIs for translation of texts from pdf and Google OAuth2 for user registration and login.
 
-| Body | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `{            | `json` | **Required**. email, password |
-  **"email"**: "email",
-  **"password"**: "password"
-}`
+<br/>
 
 
-#### Login user
-```http
-  POST /login
-```
+## Tools we offer
 
-| Body | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `{            | `json` | **Required**. email, password |
-  **"email"**: "email",
-  **"password"**: "password"
-}`
+**Extract Pages** - This tool allows you to extract specific pages from a PDF file. You can select the desired pages and create a new PDF containing only those pages, which can be helpful for sharing or archiving particular sections of a document.
 
+**OCR PDF** - With Optical Character Recognition (OCR), you can convert scanned documents and images into editable and searchable PDFs. This tool recognizes text within images and transforms it into machine-readable text, making it easier to edit and search within the document.
 
-#### Extract Pages
-```http
-  POST /extract-pages
-```
+**Translate PDF** - This feature enables you to translate the text within a PDF to different languages. Simply upload your PDF, select the target language, and the tool will generate a translated version of your document while preserving the original layout and formatting.
 
-| Body | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `{            | `json` | **Required**. filename, selectedPages |
-  **"filename"**: "sample.pdf",
-  **"selectedPages"**: [1, 3, 7],
-  **"newFilename":** "custom_extracted_file.pdf"
-}`
+**Merge PDFs** - Combine multiple PDF files into a single document using this tool. It’s perfect for consolidating reports, presentations, or any collection of PDFs into one cohesive file, simplifying organization and sharing.
+
+**PDF To Word** - Convert your PDF documents into editable Word files. This tool maintains the formatting and layout of the original PDF, allowing you to make necessary edits and modifications in Microsoft Word.
+
+**Images To PDF** - Convert image files (such as JPG, PNG, etc.) into a single PDF document. This is useful for creating photo albums, submitting assignments, or compiling multiple images into a universally accessible format.
+
+**Compress PDF** - Reduce the file size of your PDF documents without compromising on quality. This tool helps in optimizing PDFs for sharing and storage, especially when dealing with large files that need to be emailed or uploaded.
+
+**Edit PDF** - Edit the contents of your PDF files directly. This includes adding or removing text, images, annotations, and more. The tool ensures that any changes made are seamlessly integrated into the document without affecting the overall layout.
 
 
 
-#### Extract Pages For Logged In User
-```http
-  POST /login/extract-pages
-```
+<br/>
 
-| Body | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `{            | `json` | **Required**. filename, selectedPages |
-  **"filename"**: "sample.pdf",
-  **"selectedPages"**: [1, 3, 7],
-  **"newFilename":** "custom_extracted_file.pdf"
-}`
 
-<br>
+## What's next for DocuMane
+Our next step is to develop Android and iOS applications for DocuMane. This will enable users to manage and edit their PDFs on the go, providing greater flexibility and convenience.
+
+
 
 ## Installation
 
-Install pdf-generator with git:
+Install DocuMane with git:
 
 ```bash
-  git clone https://github.com/ugauniyal/PDF-Generator.git
-  cd PDF-Generator/backend
+  git clone https://github.com/justourgigs/DocuMane.git
 ```
 
+
+#### Backend
 Run pdf-generator.:
 
 ```bash
+  cd PDF-Generator/backend
   node pdf-generator.js
 ```
 
-<br>
+
+#### Frontend
+```bash
+cd PDF-Generator/pdf-app
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+#### Local Run
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+<br/>
+
 
 ## Screenshots
 
-### Upload PDF
-![Upload PDF Screenshot](https://cdn.discordapp.com/attachments/438420692007125031/1175222466512171018/image.png?ex=656a7236&is=6557fd36&hm=c1e559d17461f787df0e9146e671ccaf2426393d2eeb2053c380566e9cd673a8&)
+### ALL PDF Page
+[![DocuMane All PDF Page](https://i.postimg.cc/htWbdMWF/Screenshot-2024-07-26-065301.png)](https://postimg.cc/8j468Rzw)
 
 <br>
 
-### Retrieve PDF
-![Retrieve PDF Screenshot](https://cdn.discordapp.com/attachments/438420692007125031/1175222767029850113/image.png?ex=656a727e&is=6557fd7e&hm=9a64bf626ba42e83dbb1b05a3e4135a0af6b8e951bfae829d8bca7dba3706c4a&)
+### File Dropzone
+[![DocuMane File Dropzone](https://i.postimg.cc/pXnJr4SY/Screenshot-2024-07-26-064715.png)](https://postimg.cc/w7gmbfg7)
 
 <br>
 
-### Extract pages of PDF
-![Extract pages of PDF Screenshot](https://cdn.discordapp.com/attachments/438420692007125031/1175224039896256544/image.png?ex=656a73ad&is=6557fead&hm=b33949f47d9a70c0ec72659b54f677f50e3d2a924bc9bc1814629bf45e26178f&)
+### Tools
+[![DocuMane Tools](https://i.postimg.cc/Pf7MtTS5/Screenshot-2024-07-26-064506.png)](https://postimg.cc/nMvm2b8y)
 
 <br>
 
@@ -128,7 +109,7 @@ To run tests, run the following command. I used supertest to create the tests an
 
 ## Deployment
 
-https://pdf-generator-3n4m.onrender.com/
+https://documane.onrender.com/
 
 <br>
 <br>
@@ -138,70 +119,10 @@ https://pdf-generator-3n4m.onrender.com/
 <br>
 
 
-# PDF-Generator (Frontend - NextJS)
-This NextJS application serves as a PDF Generator which lets the user to upload the pdf using a dropzone and then the user can preview the pages of the pdf that they uploaded. The user can also select the pages that they want to extract and then click on generate PDF to get a download link for the new pdf with extracted pages.
 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 <br>
-
-## Installation
-
-Install pdf-generator with git:
-
-```bash
-  git clone https://github.com/ugauniyal/PDF-Generator.git
-  cd PDF-Generator/pdf-app
-```
-
-<br>
-
-
-## Running Tests
-
-To run tests, run the following command. I used enzyme to create the tests and jest for running the tests.
-
-```bash
-  npm test
-```
-
-<br>
-
-## Screenshots
-
-### Upload PDF
-![Upload PDF Dropzone Screenshot](https://cdn.discordapp.com/attachments/438420692007125031/1175973494249492480/image.png?ex=656d2da9&is=655ab8a9&hm=61e8a1c3b883d8d7c483e6348e5bb597ac6265c279317e654d5d5b85ef149bf4&)
-
-<br>
-
-### PDF Preview
-![PDF Preview Screenshot](https://cdn.discordapp.com/attachments/438420692007125031/1175973615473275021/image.png?ex=656d2dc6&is=655ab8c6&hm=a2ee3c92197da32f9783f349d1e86b473fdaa3dc13fe167d93667d957bf82bd6&)
-
-<br>
-
-### Extract pages of PDF
-![Extract pages of PDF Screenshot](https://cdn.discordapp.com/attachments/438420692007125031/1175973743655407746/image.png?ex=656d2de5&is=655ab8e5&hm=dc10811f6a13eedd35681150ed240dd623f12cf099e0d2fd0f034e3510e7d3be&)
-
-<br>
-
-## Deployment
-
-https://pdf-generator-three-kappa.vercel.app/
 
